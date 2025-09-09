@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Ein mit Gemma3:27B erzeugter Passwortgenerator -->
+
+<!-- Prompt: Du bist ein Experte für Webentwicklung. Bitte erstelle mir eine
+	HTML-Datei mit Javascript, die einfache Passwörter generieren kann. Die
+	Passwörter sollen das folgende Format haben: ein Nomen
+	(kleingeschrieben) + eine maximal dreistellige Zahl. Ich möchte auf der
+	Webseite einstellen können, wie viele Passwörter ich gleichzeitig
+	generieren möchte. 
+	Dankeschön! Bitte gib mir noch 20 weitere Nomen, in doppelten
+	Anführungszeichen und mit Kommata voneinander getrennt.
+-->
+
+<html>
+<head>
+    <title>Passwortgenerator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        #passwortContainer {
+            margin-top: 20px;
+        }
+        .passwort {
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Passwortgenerator</h1>
+
+    <label for="anzahlPasswoerter">Anzahl der Passwörter:</label>
+    <input type="number" id="anzahlPasswoerter" min="1" value="1">
+    <button onclick="passwoerterGenerieren()">Generieren</button>
+
+    <div id="passwortContainer">
+        <!-- Hier werden die generierten Passwörter angezeigt -->
+    </div>
+
+    <script>
+        const nomenListe = [
+            "baum", "haus", "fluss", "berg", "sonne", "mond", "stern", "vogel",
+            "blume", "buch", "tisch", "stuhl", "fenster", "tuer", "auto", "rad",
+	    "wolke", "regen", "wind", "feuer", "erde", "meer", "wald", "fluss", 
+	    "see", "berg", "tal", "pfad", "garten", "blume", "tier", "vogel", 
+	    "fisch", "insekt", "baum", "strauch"
+        ];
+
+        function passwoerterGenerieren() {
+            const anzahl = document.getElementById("anzahlPasswoerter").value;
+            const passwortContainer = document.getElementById("passwortContainer");
+            passwortContainer.innerHTML = ""; // Leere den Container, bevor neue Passwörter generiert werden
+
+            for (let i = 0; i < anzahl; i++) {
+                const nomen = nomenListe[Math.floor(Math.random() * nomenListe.length)];
+                const zahl = Math.floor(Math.random() * 1000); // Zufällige Zahl zwischen 0 und 999
+                const passwort = nomen + zahl;
+
+                const passwortElement = document.createElement("div");
+                passwortElement.classList.add("passwort");
+                passwortElement.textContent = passwort;
+                passwortContainer.appendChild(passwortElement);
+            }
+        }
+    </script>
+
+</body>
+</html>
